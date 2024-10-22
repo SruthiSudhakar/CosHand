@@ -179,10 +179,12 @@ parser = argparse.ArgumentParser()
 args = parser.parse_args()
 
 device = 'cuda'
-config='/proj/vondrick3/sruthi/projeccv24/zero123jgd/CosHand/logs/2024-02-04T14-06-22_jgd_stride_10_cond_1/configs/2024-02-04T14-06-22-project.yaml'
-ckpt='/proj/vondrick3/sruthi/projeccv24/zero123jgd/CosHand/logs/2024-02-04T14-06-22_jgd_stride_10_cond_1/checkpoints/trainstep_checkpoints/epoch=000010-step=000038999.ckpt'
+# config='/proj/vondrick3/sruthi/projeccv24/zero123jgd/CosHand/logs/2024-02-04T14-06-22_jgd_stride_10_cond_1/configs/2024-02-04T14-06-22-project.yaml'
+# ckpt='/proj/vondrick3/sruthi/projeccv24/zero123jgd/CosHand/logs/2024-02-04T14-06-22_jgd_stride_10_cond_1/checkpoints/trainstep_checkpoints/epoch=000010-step=000038999.ckpt'
+config = 'coshandrelease_config.yaml'
+ckpt='coshandrelease.ckpt'
 
-sspp = "/".join(ckpt.split("/")[:-1])+"/"+ckpt.split("/")[-1][:-5]+'/final_eval_set/' #set path for output of results
+sspp = './evaluation_results' #set path for output of results
 if not os.path.exists(sspp):
     print('CREATING DIRECTORY')
     os.makedirs(sspp)

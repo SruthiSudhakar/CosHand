@@ -21,9 +21,27 @@ git clone https://github.com/openai/CLIP.git
 pip install -e CLIP/
 ```
 
-## Installation
+## Usage
+Download the config and checkpoint here:
+```
+wget https://cv.cs.columbia.edu/zero123/assets/coshandrelease_config.yaml    
+wget https://cv.cs.columbia.edu/zero123/assets/coshandrelease.ckpt    
+```
 
-structure of dataset folder for data.params.root_dir in cfg above:
+## Qualitative Evaluation
+change the paths inside this file
+```
+python run_results_on_final_eval_set.py
+```
+## Gradio demo
+change the paths inside this file
+```
+python gradio.py
+```
+
+## Dataset Structure
+
+structure of dataset folder for data.params.root_dir in cfg below:
 ```
 FullSSv2
 │
@@ -46,6 +64,9 @@ FullSSv2
 │   │   └── ...
 ```
 ## Training
+Download image-conditioned stable diffusion checkpoint released by Lambda Labs: <br>
+wget https://cv.cs.columbia.edu/zero123/assets/sd-image-conditioned-v2.ckpt
+
 ```
 python main.py \
     -t \
@@ -57,18 +78,7 @@ python main.py \
     --check_val_every_n_epoch 10 \
     --finetune_from /path/to/sd-image-conditioned-v2.ckpt \
     --name name_of_run \
-    data.params.root_dir=/path/to/dataset \
-    data.params.max_number_of_conditioning_frames=5 \
-```
-## Qualitative Evaluation
-change the paths inside this file
-```
-python run_results_on_final_eval_set.py
-```
-## Gradio demo
-change the paths inside this file
-```
-python gradio.py
+    data.params.root_dir=/path/to/dataset 
 ```
 
 ## Acknowledgement
