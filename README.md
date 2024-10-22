@@ -1,8 +1,8 @@
 # CosHand: Controlling the World by Sleight of Hand
-ECCV 2024, Oral, Best Paper Candidate
-[CosHand: Controlling the World by Sleight of Hand](https://coshand.cs.columbia.edu/)
-Sruthi Sudhakar, Ruoshi Liu, Basile Van Hoorick, Carl Vondrick, Richard Zemel
-Columbia University
+ECCV 2024 (Oral, Best Paper Candidate) <br>
+[CosHand: Controlling the World by Sleight of Hand](https://coshand.cs.columbia.edu/) <br>
+Sruthi Sudhakar, Ruoshi Liu, Basile Van Hoorick, Carl Vondrick, Richard Zemel <br>
+Columbia University <br>
 
 ## Installation
 ### 1. Clone the repository
