@@ -1,0 +1,125 @@
+model:
+  base_learning_rate: 1.0e-04  # NOTE THAT WE CHANGED SOMETHING
+  target: ldm.models.diffusion.ddpm.LatentDiffusion
+  params:
+    linear_start: 0.00085
+    linear_end: 0.0120
+    num_timesteps_cond: 1
+    log_every_t: 200
+    timesteps: 1000
+    first_stage_key: "image_target"
+    cond_stage_key: "image_cond"
+    image_size: 32
+    channels: 4
+    cond_stage_trainable: false   # Note: different from the one we trained before
+    conditioning_key: hybrid
+    monitor: val/loss_simple_ema
+    scale_factor: 0.18215
+    hand_weighted_loss: False
+    lora_rank: -10
+    just_captions: False
+
+    scheduler_config: # 10000 warmup steps
+      target: ldm.lr_scheduler.LambdaLinearScheduler
+      params:
+        warm_up_steps: [ 100 ]
+        cycle_lengths: [ 10000000000000 ] # incredibly large number to prevent corner cases
+        f_start: [ 1.e-6 ]
+        f_max: [ 1. ]
+        f_min: [ 1. ]
+
+    unet_config: #denoising unet that goes from already encoded image in 64x64x4 space to another 64x64x4 denoised image
+      target: ldm.modules.diffusionmodules.openaimodel.UNetModel
+      params:
+        image_size: 32 # unused
+        in_channels: 16 # NOTE THAT WE CHANGED SOMETHING
+        out_channels: 4
+        model_channels: 320
+        attention_resolutions: [ 4, 2, 1 ]
+        num_res_blocks: 2
+        channel_mult: [ 1, 2, 4, 4 ]
+        num_heads: 8
+        use_spatial_transformer: True
+        transformer_depth: 1
+        context_dim: 768
+        use_checkpoint: True
+        legacy: False
+
+    first_stage_config: #encoder going from image 256x256x3 to encoded image feed to unet 64x64x4
+      target: ldm.models.autoencoder.AutoencoderKL
+      params:
+        embed_dim: 4
+        monitor: val/rec_loss
+        ddconfig:
+          double_z: true
+          z_channels: 4
+          resolution: 256
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult:
+          - 1
+          - 2
+          - 4
+          - 4
+          num_res_blocks: 2
+          attn_resolutions: []
+          dropout: 0.0
+        lossconfig:
+          target: torch.nn.Identity
+
+    cond_stage_config: #external conditinoing of text,image,whatever u want.
+      target: ldm.modules.encoders.modules.FrozenCLIPImageEmbedder
+
+
+data:
+  target: ldm.data.simple.BerkeleyBridgeDataModuleFromConfig
+  params:
+    root_dir: '/local/vondrick/sruthi/FullSSv2'
+    labels_dir: '/proj/vondrick4/datasets/bridgedatav2/raw/all_masked_data_train.json'
+    batch_size: 16  # NOTE THAT WE CHANGED SOMETHING
+    num_workers: 16
+    max_number_of_conditioning_frames: 1
+    frame_width: 256
+    frame_height: 256
+    frame_stride: 7
+    one_ex: False
+
+    train:
+      validation: False
+
+    validation:
+      validation: True
+
+
+lightning:
+  find_unused_parameters: false
+  metrics_over_trainsteps_checkpoint: True
+  modelcheckpoint:
+    params:
+      every_n_train_steps: 100  # NOTE THAT WE CHANGED SOMETHING
+  callbacks:
+    metrics_over_trainsteps_checkpoint:
+      params:
+        every_n_train_steps: 100  # NOTE THAT WE CHANGED SOMETHING
+    image_logger:
+      target: main.ImageLogger
+      params:
+        batch_frequency: 100
+        max_images: 10
+        increase_log_steps: False
+        log_first_step: True
+        log_images_kwargs:
+          use_ema_scope: False
+          inpaint: False
+          plot_progressive_rows: False
+          plot_diffusion_rows: False
+          N: 10
+          unconditional_guidance_scale: 3.0
+          unconditional_guidance_label: [""]
+
+  trainer:
+    benchmark: True
+    val_check_interval: 5000000 # really sorry
+    num_sanity_val_steps: 0
+    accumulate_grad_batches: 1
