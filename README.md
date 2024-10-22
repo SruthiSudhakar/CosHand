@@ -5,11 +5,13 @@ Official Repo for CosHand: Controlling the World by Sleight of Hand
 
 ## Installation
 ### 1. Clone the repository
-```bash
 git clone https://github.com/SruthiSudhakar/CosHand.git
 cd CosHand
+
 conda create -n coshand python==3.9.19
 pip install -r requirements.txt
+
+## Installation
 
 structure of dataset folder for data.params.root_dir in cfg above:
 FullSSv2
@@ -52,7 +54,7 @@ change the paths inside this file
 
 python run_results_on_final_eval_set.py
 
-## gradio demo
+## Gradio demo
 change the paths inside this file
 
 python gradio.py
