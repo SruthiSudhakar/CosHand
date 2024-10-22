@@ -1,29 +1,38 @@
-Installation:
-1. git clone 
+# CosHand
+
+## Controlling the World by Sleight of Hand
+Official Repo for CosHand: Controlling the World by Sleight of Hand
+
+## Installation
+### 1. Clone the repository
+```bash
+git clone https://github.com/SruthiSudhakar/CosHand.git
+cd CosHand
+conda create -n coshand python==3.9.19
+pip install -r requirements.txt
 
 structure of dataset folder for data.params.root_dir in cfg above:
 FullSSv2
-    |__data
-        |__handmasks
-                |__video_id_1
-                        |__image_0001.jpg
-                        |__image_0002.jpg
-                        |__image_0003.jpg
-                        ...
-                |__video_id_2
-                |__video_id_3
-                ...
-        |__rawframes
-                |__video_id_1
-                        |__image_0001.jpg
-                        |__image_0002.jpg
-                        |__image_0003.jpg
-                        ...
-                |__video_id_2
-                |__video_id_3
-                ...
+│
+├── data
+│   ├── handmasks
+│   │   ├── video_id_1
+│   │   │   ├── image_0001.jpg
+│   │   │   ├── image_0002.jpg
+│   │   │   └── ...
+│   │   ├── video_id_2
+│   │   ├── video_id_3
+│   │   └── ...
+│   ├── rawframes
+│   │   ├── video_id_1
+│   │   │   ├── image_0001.jpg
+│   │   │   ├── image_0002.jpg
+│   │   │   └── ...
+│   │   ├── video_id_2
+│   │   ├── video_id_3
+│   │   └── ...
 
-training:
+## Training
 
 python main.py \
     -t \
@@ -38,9 +47,12 @@ python main.py \
     data.params.root_dir=/path/to/dataset \
     data.params.max_number_of_conditioning_frames=5 \
 
-qualitative evaluation: change the paths inside this file
+## Qualitative Evaluation
+change the paths inside this file
 
 python run_results_on_final_eval_set.py
 
-gradio demo: change the paths inside this file
+## gradio demo
+change the paths inside this file
+
 python gradio.py
