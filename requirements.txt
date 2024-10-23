@@ -125,8 +125,8 @@ responses==0.18.0
 rich==13.8.1
 rpds-py==0.20.0
 safetensors==0.4.5
-scikit-image==0.20.0
-scipy==1.13.1
+scikit-image
+scipy
 segment-anything==1.0
 six==1.16.0
 smmap==5.0.1

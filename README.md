@@ -10,8 +10,10 @@ Columbia University <br>
 git clone https://github.com/SruthiSudhakar/CosHand.git
 cd CosHand
 
-conda create -n coshand python=3.10
+conda create -n coshand python=3.9
 conda activate coshand
+
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
 
 pip install -r requirements.txt
 
@@ -24,7 +26,9 @@ pip install -e CLIP/
 ## Usage
 Download the config and checkpoint here:
 ```
-wget https://cv.cs.columbia.edu/sruthi/coshand/assests/coshandrelease_config.yaml    
+wget https://cv.cs.columbia.edu/sruthi/coshand/assets/groundingdino_swint_ogc.pth
+wget https://cv.cs.columbia.edu/sruthi/coshand/assets/sam_vit_h_4b8939.pth
+wget https://cv.cs.columbia.edu/sruthi/coshand/assets/coshandrelease_config.yaml    
 wget https://cv.cs.columbia.edu/sruthi/coshand/assets/coshandrelease.ckpt    
 ```
 

@@ -24,12 +24,12 @@ import matplotlib.pyplot as plt
 import pdb
 
 device = 'cuda'
-sam_checkpoint = '/proj/vondrick3/sruthi/GetHandMasks/metasam_chkpt/sam_vit_h_4b8939.pth'
+sam_checkpoint = 'sam_vit_h_4b8939.pth'
 sam = build_sam(checkpoint=sam_checkpoint).to("cuda")
 sam_predictor = SamPredictor(sam)
-SAM_CONFIG_PATH = os.path.join("/proj/vondrick3/sruthi/pips/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py")
+SAM_CONFIG_PATH = os.path.join("./GroundingDino/GroundingDINO_SwinT_OGC.py")
 SAM_WEIGHTS_NAME = "groundingdino_swint_ogc.pth"
-SAM_WEIGHTS_PATH = os.path.join("/proj/vondrick3/sruthi/pips/GroundingDINO/groundingdino/weights", SAM_WEIGHTS_NAME)
+SAM_WEIGHTS_PATH = SAM_WEIGHTS_NAME
 sam_model = load_model(SAM_CONFIG_PATH, SAM_WEIGHTS_PATH)
 TEXT_PROMPT = "hands"
 CONFIG = None

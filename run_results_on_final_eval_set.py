@@ -179,8 +179,8 @@ parser = argparse.ArgumentParser()
 args = parser.parse_args()
 
 device = 'cuda'
-config = '/proj/vondrick/www/sruthi/coshand/assets/coshandrelease_config.yaml'
-ckpt='/proj/vondrick/www/sruthi/coshand/assets/coshandrelease.ckpt'
+config = 'coshandrelease_config.yaml'
+ckpt='coshandrelease.ckpt'
 
 sspp = './evaluation_results' #set path for output of results
 if not os.path.exists(sspp):
