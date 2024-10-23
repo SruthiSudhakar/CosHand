@@ -1,1 +1,3 @@
-logs/*
+logs
+__pycache__
+evaluation_results

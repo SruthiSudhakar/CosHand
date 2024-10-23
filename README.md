@@ -10,7 +10,7 @@ Columbia University <br>
 git clone https://github.com/SruthiSudhakar/CosHand.git
 cd CosHand
 
-conda create -n coshand python=3.9
+conda create -n coshand python=3.10
 conda activate coshand
 
 pip install -r requirements.txt
@@ -24,8 +24,8 @@ pip install -e CLIP/
 ## Usage
 Download the config and checkpoint here:
 ```
-wget https://cv.cs.columbia.edu/zero123/assets/coshandrelease_config.yaml    
-wget https://cv.cs.columbia.edu/zero123/assets/coshandrelease.ckpt    
+wget https://cv.cs.columbia.edu/sruthi/coshand/assests/coshandrelease_config.yaml    
+wget https://cv.cs.columbia.edu/sruthi/coshand/assets/coshandrelease.ckpt    
 ```
 
 ## Qualitative Evaluation
@@ -65,7 +65,7 @@ FullSSv2
 ```
 ## Training
 Download image-conditioned stable diffusion checkpoint released by Lambda Labs: <br>
-wget https://cv.cs.columbia.edu/zero123/assets/sd-image-conditioned-v2.ckpt
+wget https://cv.cs.columbia.edu/sruthi/coshand/assets/sd-image-conditioned-v2.ckpt
 
 ```
 python main.py \

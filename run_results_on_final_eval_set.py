@@ -179,10 +179,8 @@ parser = argparse.ArgumentParser()
 args = parser.parse_args()
 
 device = 'cuda'
-# config='/proj/vondrick3/sruthi/projeccv24/zero123jgd/CosHand/logs/2024-02-04T14-06-22_jgd_stride_10_cond_1/configs/2024-02-04T14-06-22-project.yaml'
-# ckpt='/proj/vondrick3/sruthi/projeccv24/zero123jgd/CosHand/logs/2024-02-04T14-06-22_jgd_stride_10_cond_1/checkpoints/trainstep_checkpoints/epoch=000010-step=000038999.ckpt'
-config = 'coshandrelease_config.yaml'
-ckpt='coshandrelease.ckpt'
+config = '/proj/vondrick/www/sruthi/coshand/assets/coshandrelease_config.yaml'
+ckpt='/proj/vondrick/www/sruthi/coshand/assets/coshandrelease.ckpt'
 
 sspp = './evaluation_results' #set path for output of results
 if not os.path.exists(sspp):
@@ -194,7 +192,7 @@ config = OmegaConf.load(config)
 models = dict()
 print('Instantiating LatentDiffusion...')
 models['turncam'] = load_model_from_config(config, ckpt, device=device)
-rr = "/proj/vondrick3/datasets/FullSSv2/data/"
+rr = "/proj/vondrick3/datasets/FullSSv2/data/" #path to SSV2 folder
 
 final_eval_set = json.load(open('/proj/vondrick3/sruthi/sairam_evaluation/final_eval_set.json')) # json file where key=video id and value=before and after frame ids. ex below:
 '''
@@ -207,6 +205,7 @@ final_eval_set = json.load(open('/proj/vondrick3/sruthi/sairam_evaluation/final_
 
 print(len(final_eval_set))
 
+#iterate through each video id in the json file 
 for xid in tqdm(final_eval_set):
     value = [final_eval_set[xid][-2],final_eval_set[xid][-1]]
     get_samples(rr,xid,sspp, value, target_height=256, target_width=256)
